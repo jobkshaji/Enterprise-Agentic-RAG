@@ -1,0 +1,61 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment/config secrets
+.env
+.env.*
+*.env
+.logfire/
+.logfire/**
+logfire_credentials.json
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test / coverage artifacts
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local data / generated output
+DATA/**/*.json
+processed_data/
+*.sqlite3
+
+# Streamlit / app temp state
+.streamlit/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large binaries / documents if not meant to be committed
+*.pdf
+*.pptx
+*.docx
+*.zip
+*.tar.gz
