@@ -73,7 +73,7 @@ def _color_score(val):
 def _render_metric_table(df: pd.DataFrame, metric_col: str, title: str):
     avg = df[metric_col].mean()
     st.markdown(f"**{title}** — AVG: {_badge(avg)} `{avg:.2f}` {_grade(avg)}")
-    styled = df.style.applymap(_color_score, subset=[metric_col]).format({metric_col: "{:.3f}"})
+    styled = df.style.map(_color_score, subset=[metric_col]).format({metric_col: "{:.3f}"})
     st.dataframe(styled, use_container_width=True, hide_index=True)
 
 

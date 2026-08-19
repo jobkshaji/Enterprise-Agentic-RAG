@@ -6,7 +6,7 @@ from app.config import settings
 
 
 # Production gateway config:
-#   - Fallback: primary @rag/llama-3.3-70b-versatile → @brag/llama-3.1-8b-instant on failure
+#   - Fallback: primary @rag/openai/gpt-oss-20b → @brag/openai/gpt-oss-20b on failure
 #   - Cache: semantic mode (requires Portkey Enterprise — silently falls back to simple on free/starter)
 #   - Retry: 2 attempts on rate limit / server error before triggering the fallback target
 GATEWAY_CONFIG = settings.PORTKEY_CONFIG_SLUG
@@ -17,7 +17,7 @@ portkey_client = Portkey(
 )
 
 
-def get_langchain_llm(feature: str = "rag") -> ChatOpenAI:
+def get_langchain_llm(feature: str = "groq") -> ChatOpenAI:
     """0 
     Returns a Portkey-backed ChatOpenAI — a drop-in for ChatGroq in LangChain nodes.
 
@@ -31,7 +31,7 @@ def get_langchain_llm(feature: str = "rag") -> ChatOpenAI:
     return ChatOpenAI(
         api_key=settings.PORTKEY_API_KEY,
         base_url=PORTKEY_GATEWAY_URL,
-        model=f"@{settings.GROQ_SLUG}/llama-3.3-70b-versatile",
+        model=f"@{settings.GROQ_SLUG}/openai/gpt-oss-20b",
         temperature=0,
         default_headers=createHeaders(
             api_key=settings.PORTKEY_API_KEY,

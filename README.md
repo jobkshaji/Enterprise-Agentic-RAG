@@ -74,7 +74,7 @@ sequenceDiagram
 | **Agent Orchestration** | LangGraph (Planner → Retriever → Responder) | Cyclic state machine with conversational memory |
 | **Guardrails** | NeMo Guardrails (Colang) | Off-topic guard, jailbreak shield, dialog control |
 | **LLM Gateway** | Portkey | Retries, fallback, load balancing, caching, observability |
-| **LLM Provider** | Groq (`llama-3.3-70b-versatile`, `llama-3.1-8b-instant`) | Generation + fast judge model |
+| **LLM Provider** | OpenAI/Groq (`openai/gpt-oss-20b`) | Generation via Portkey gateway |
 | **Observability** | Pydantic Logfire + LangSmith | Infrastructure spans + agent/LLM trace views |
 | **Evaluation** | RAGAS 0.4.3 + DeepEval (Jaccard) | 6 metrics across retrieval, generation, and tool-routing |
 | **Backend** | FastAPI | `/query` endpoint, two-gate request handling |
@@ -86,11 +86,11 @@ sequenceDiagram
 
 ```mermaid
 graph TD
-    Start((Start)) --> Planner[Planner\nGroq Llama 3.3 70B]
+    Start((Start)) --> Planner[Planner\nOpenAI/Groq OSS 20B]
     Planner -->|Technical Query| Retriever[Retriever]
     Planner -->|Greeting/History| Skip((Skip Search))
     Retriever --> Rerank[FlashRank\nLocal Cross-Encoder]
-    Rerank --> Responder[Responder\nGroq Llama 3.3 70B]
+    Rerank --> Responder[Responder\nOpenAI/Groq OSS 20B]
     Skip --> Responder
     Responder --> End((End))
 ```
@@ -121,7 +121,7 @@ A jailbreak or off-topic message is rejected in milliseconds — Qdrant, FlashRa
 Built with **Portkey**, sitting between every LLM call and Groq. Zero changes to business logic.
 
 - **Automatic retries** on transient errors (429/500/503)
-- **Fallback** from `llama-3.3-70b-versatile` to `llama-3.1-8b-instant` on failure
+- **Fallback** configured in Portkey dashboard
 - **Request caching** (exact-match on free tier; semantic on Enterprise)
 - **Full observability** — every call logged with cost, latency, and model actually used
 - **Two isolated Groq keys** — production traffic never competes with eval traffic for rate limits
@@ -146,7 +146,7 @@ A 15-question **golden dataset**, drawn from real enterprise docs (Kubernetes Jo
 | 5 | Answer Correctness | Generation | Factual mismatch vs. ground truth |
 | 6 | Tool Correctness | Agent | Wrong tool routing (Jaccard, zero LLM cost) |
 
-Run in two phases: **Phase 1** collects live responses from the running API; **Phase 2** scores them with RAGAS (judge: `llama-3.1-8b-instant` on a dedicated key, paced to respect Groq's TPM limits). Results surface in a Streamlit dashboard, with every trace visible in Logfire.
+Run in two phases: **Phase 1** collects live responses from the running API; **Phase 2** scores them with RAGAS (judge: `openai/gpt-oss-20b` on a dedicated key, paced to respect rate limits). Results surface in a Streamlit dashboard, with every trace visible in Logfire.
 
 **Score thresholds:** 🟢 ≥ 0.75 ship it · 🟡 0.50–0.75 investigate · 🔴 < 0.50 fix before shipping.
 

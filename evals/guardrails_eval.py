@@ -10,7 +10,7 @@ import copy
 import requests
 import logfire
 
-API_URL = "http://localhost:8000/query"
+API_URL = "http://localhost:8080/query"
 
 
 def _is_blocked(response_json: dict) -> bool:

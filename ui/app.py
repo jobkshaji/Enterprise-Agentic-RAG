@@ -116,13 +116,14 @@ if prompt := st.chat_input("Ask about your documentation..."):
 
             # Final Answer Streaming
             answer_placeholder = st.empty()
-            full_answer = data.get("answer", "No response.")
+            full_answer = data.get("answer") or "No response available."
             
-            curr_text = ""
-            for char in full_answer:
-                curr_text += char
-                answer_placeholder.markdown(curr_text + "▌")
-                time.sleep(0.005)
+            if full_answer and isinstance(full_answer, str):
+                curr_text = ""
+                for char in full_answer:
+                    curr_text += char
+                    answer_placeholder.markdown(curr_text + "▌")
+                    time.sleep(0.005)
             
             answer_placeholder.markdown(full_answer)
             st.session_state.messages.append({"role": "assistant", "content": full_answer})

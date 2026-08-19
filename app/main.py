@@ -86,7 +86,7 @@ def query(request: QueryRequest):
 
         return {
             "question": q,
-            "answer": final_output.get("final_answer"),
+            "answer": final_output.get("final_answer") or "Unable to generate a response. Please try again.",
             "thought_process": final_output.get("plan"),
             "status": final_output.get("status"),
             "sources": final_output.get("documents", [])

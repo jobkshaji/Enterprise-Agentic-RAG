@@ -13,7 +13,7 @@ import os
 import requests
 import logfire
 
-API_URL = "http://localhost:8000/query"
+API_URL = "http://localhost:8080/query"
 RESPONSE_TRUNCATE = 300
 DELAY_BETWEEN_CALLS = 10   # seconds — stays within Groq RPM on the main key
 REQUEST_TIMEOUT = 120      # seconds — guardrails + LangGraph + Groq can take >60s
@@ -106,11 +106,11 @@ def run_pipeline(golden_dataset: dict, progress_callback=None) -> dict:
 
 
 def save_results(dataset: dict, path: str) -> None:
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(dataset, f, indent=2)
         
         
 def load_golden_dataset() -> dict:
     golden_path = os.path.join(os.path.dirname(__file__), "golden_dataset.json")
-    with open(golden_path) as f:
+    with open(golden_path, "r", encoding="utf-8") as f:
         return json.load(f)
