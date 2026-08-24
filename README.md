@@ -66,6 +66,39 @@ sequenceDiagram
 
 ---
 
+## ☁️ Production Deployment
+
+The application is containerized with Docker and deployed on AWS using:
+
+- **Amazon ECR** — Docker image registry
+- **Amazon ECS Fargate** — Serverless container execution
+- **Application Load Balancer** — Public HTTP/HTTPS traffic routing
+- **AWS Secrets Manager** — Secure API key and credential management
+- **CloudWatch Logs** — Container logs and runtime diagnostics
+
+### Production Architecture
+
+```text
+                    Internet
+                       │
+                       ▼
+              Application Load Balancer
+                       │
+              ┌────────┴────────┐
+              │                 │
+           /ui*             /query
+              │                 │
+              ▼                 ▼
+        ECS Fargate        ECS Fargate
+         Streamlit           FastAPI
+           :8501              :8080
+              │                 │
+              └────────┬────────┘
+                       │
+              Qdrant / Portkey /
+              LLM / Guardrails
+```
+
 ## 📦 System Components
 
 | Layer | Technology | Role |
