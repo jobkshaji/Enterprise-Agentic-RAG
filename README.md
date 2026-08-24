@@ -1,6 +1,10 @@
 # 🛡️ Aegis RAG
 ### Enterprise Agentic Retrieval Platform
 
+### 🚀 Live Demo
+
+**[Open Aegis RAG →](http://rag-alb-1852290112.us-east-1.elb.amazonaws.com/ui)**
+
 > *Aegis — the shield. A RAG system that doesn't just answer questions, it guards, routes, reranks, and proves its own correctness.*
 
 A production-grade, state-of-the-art **Agentic RAG** system built for speed, scalability, safety, and deep observability. Aegis RAG combines a **LangGraph** reasoning core, a fully local reranking layer, an enterprise **guardrails** gate, a resilient **LLM gateway**, and a rigorous **evaluation pipeline** — all running on a cloud-agnostic, mostly local-first stack.
