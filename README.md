@@ -1,9 +1,11 @@
 # 🛡️ Aegis RAG
 ### Enterprise Agentic Retrieval Platform
 
-### 🚀 Live Demo
+### 🚀 Production Deployment
 
-**[Open Aegis RAG →](http://rag-alb-1852290112.us-east-1.elb.amazonaws.com/ui)**
+> Previously deployed on AWS using ECS Fargate, Amazon ECR, Application Load Balancer, Secrets Manager, and CloudWatch.
+>
+> The cloud deployment is currently offline to avoid ongoing infrastructure costs. The application can be redeployed using the included AWS deployment scripts.
 
 > *Aegis — the shield. A RAG system that doesn't just answer questions, it guards, routes, reranks, and proves its own correctness.*
 
