@@ -5,7 +5,7 @@
 
 > Previously deployed on AWS using ECS Fargate, Amazon ECR, Application Load Balancer, Secrets Manager, and CloudWatch.
 >
-> The cloud deployment is currently offline to avoid ongoing infrastructure costs. The application can be redeployed using the included AWS deployment scripts.
+> The cloud deployment is currently offline to avoid ongoing infrastructure costs. The application can be redeployed using the AWS deployment scripts.
 
 > *Aegis — the shield. A RAG system that doesn't just answer questions, it guards, routes, reranks, and proves its own correctness.*
 
